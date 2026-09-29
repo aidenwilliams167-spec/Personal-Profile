@@ -1,0 +1,13 @@
+body{
+  background-color: black;
+}
+
+.introduction{
+text-align: center;
+color: white;
+}
+
+.list{
+text-align: left;
+color: white;
+}
