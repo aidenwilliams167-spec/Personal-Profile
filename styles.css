@@ -1,13 +1,66 @@
 body{
-  background-color: black;
+    background-color: black;
+    
+    color: white;
 }
 
-.introduction{
-text-align: center;
-color: white;
+
+p{
+    text-align: center;
+    font-size: 20px;
+}
+h2{
+    color:white;
+     text-align: center;
+    font-size: 30px;
+   font-weight: 3px;
 }
 
-.list{
-text-align: left;
-color: white;
+
+.background{
+    color:black;
+     text-align: center;
+    font-size: 30px;
+   font-weight: 3px;
+   border-style: solid;
+   border-width: 4px;
+   background-color: gainsboro;
+   margin-left: 10%;
+   margin-right: 10%;
+   border-radius: 4px;
+   border-color: gold;
+}
+a:link{
+    color: steelblue;
+}
+a:hover{
+    color: red;
+}
+a:active{
+    color: blue;
+}
+a:visited{
+    color: steelblue;
+}
+
+ul, ol{
+    font-size: 20px;
+}
+
+button{
+   position: fixed;
+        left: auto;
+        top: auto;
+        right: 15px;
+        bottom: 15px;
+        width: auto;
+        height: auto;
+        max-width: calc(100% - 30px);
+        font-size: 14px;
+        padding: 12px;
+        text-align: center;
+}
+img{
+    padding-left: 17cm;
+    
 }
