@@ -39,37 +39,82 @@
 
     <button onclick="confetti()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; font-size: 16px;">funny button</button>
 
-    <script>
-        function confetti() {
-            for (let i = 0; i < 100; i++) {
-                let piece = document.createElement("div");
+    
+<script>
+function confetti() {
+    const colors = [
+        "pink", "yellow", "blue", "green",
+        "purple", "orange", "red", "cyan",
+        "magenta", "lime", "gold"
+    ];
 
-                piece.style.position = "fixed";
-                piece.style.width = "10px";
-                piece.style.height = "10px";
-                piece.style.backgroundColor =
-                    ["pink", "yellow", "blue", "green", "purple", "orange"][Math.floor(Math.random() * 6)];
+    // Screen shake
+    document.body.animate(
+        [
+            { transform: "translate(0, 0)" },
+            { transform: "translate(-8px, 5px)" },
+            { transform: "translate(8px, -5px)" },
+            { transform: "translate(-5px, -5px)" },
+            { transform: "translate(0, 0)" }
+        ],
+        { duration: 400 }
+    );
 
-                piece.style.left = Math.random() * 100 + "vw";
-                piece.style.top = "-10px";
-                piece.style.zIndex = "9999";
+    // Create 500 pieces
+    for (let i = 0; i < 500; i++) {
+        let piece = document.createElement("div");
 
-                document.body.appendChild(piece);
+        const size = 5 + Math.random() * 15;
 
-                let fall = piece.animate(
-                    [
-                        { transform: "translateY(0) rotate(0deg)" },
-                        { transform: "translateY(100vh) rotate(720deg)" }
-                    ],
-                    {
-                        duration: 2000 + Math.random() * 2000,
-                        easing: "ease-out"
-                    }
-                );
+        piece.style.position = "fixed";
+        piece.style.width = size + "px";
+        piece.style.height = size * (0.5 + Math.random()) + "px";
 
-                fall.onfinish = () => piece.remove();
+        piece.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        // Random shapes
+        piece.style.borderRadius =
+            Math.random() > 0.5 ? "50%" : "0%";
+
+        // Random starting position
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.top = "-30px";
+
+        piece.style.zIndex = "9999";
+        piece.style.pointerEvents = "none";
+
+        document.body.appendChild(piece);
+
+        // Random movement
+        const horizontal = (Math.random() - 0.5) * 500;
+        const rotation = Math.random() * 1800 - 900;
+        const duration = 2000 + Math.random() * 4000;
+
+        const fall = piece.animate(
+            [
+                {
+                    transform: "translate(0, 0) rotate(0deg)",
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${horizontal * 0.3}px, 35vh) rotate(${rotation * 0.3}deg)`,
+                    opacity: 1
+                },
+                {
+                    transform: `translate(${horizontal}px, 110vh) rotate(${rotation}deg)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration: duration,
+                easing: "cubic-bezier(0.2, 0.7, 0.3, 1)"
             }
-        }
-    </script>
+        );
+
+        fall.onfinish = () => piece.remove();
+    }
+}
+</script>
 </body>
 </html>
