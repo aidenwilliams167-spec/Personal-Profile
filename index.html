@@ -40,81 +40,56 @@
     <button onclick="confetti()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; font-size: 16px;">funny button</button>
 
     
+
 <script>
-function confetti() {
-    const colors = [
-        "pink", "yellow", "blue", "green",
-        "purple", "orange", "red", "cyan",
-        "magenta", "lime", "gold"
-    ];
+    function confetti() {
+        const colors = [
+            "pink", "yellow", "blue", "green",
+            "purple", "orange", "red", "cyan",
+            "magenta", "lime", "gold", "white"
+        ];
 
-    // Screen shake
-    document.body.animate(
-        [
-            { transform: "translate(0, 0)" },
-            { transform: "translate(-8px, 5px)" },
-            { transform: "translate(8px, -5px)" },
-            { transform: "translate(-5px, -5px)" },
-            { transform: "translate(0, 0)" }
-        ],
-        { duration: 400 }
-    );
+        for (let i = 0; i < 500; i++) {
+            let piece = document.createElement("div");
 
-    // Create 500 pieces
-    for (let i = 0; i < 500; i++) {
-        let piece = document.createElement("div");
+            piece.style.position = "fixed";
+            piece.style.width = (5 + Math.random() * 12) + "px";
+            piece.style.height = (5 + Math.random() * 12) + "px";
 
-        const size = 5 + Math.random() * 15;
+            piece.style.backgroundColor =
+                colors[Math.floor(Math.random() * colors.length)];
 
-        piece.style.position = "fixed";
-        piece.style.width = size + "px";
-        piece.style.height = size * (0.5 + Math.random()) + "px";
+            piece.style.left = Math.random() * 100 + "vw";
+            piece.style.top = "-20px";
+            piece.style.zIndex = "9999";
 
-        piece.style.backgroundColor =
-            colors[Math.floor(Math.random() * colors.length)];
+            // Random shapes
+            piece.style.borderRadius =
+                Math.random() > 0.5 ? "50%" : "0%";
 
-        // Random shapes
-        piece.style.borderRadius =
-            Math.random() > 0.5 ? "50%" : "0%";
+            document.body.appendChild(piece);
 
-        // Random starting position
-        piece.style.left = Math.random() * 100 + "vw";
-        piece.style.top = "-30px";
+            let horizontalMovement = (Math.random() - 0.5) * 400;
 
-        piece.style.zIndex = "9999";
-        piece.style.pointerEvents = "none";
-
-        document.body.appendChild(piece);
-
-        // Random movement
-        const horizontal = (Math.random() - 0.5) * 500;
-        const rotation = Math.random() * 1800 - 900;
-        const duration = 2000 + Math.random() * 4000;
-
-        const fall = piece.animate(
-            [
+            let fall = piece.animate(
+                [
+                    {
+                        transform: "translate(0, 0) rotate(0deg)"
+                    },
+                    {
+                        transform:
+                            `translate(${horizontalMovement}px, 110vh) rotate(${720 + Math.random() * 1440}deg)`
+                    }
+                ],
                 {
-                    transform: "translate(0, 0) rotate(0deg)",
-                    opacity: 1
-                },
-                {
-                    transform: `translate(${horizontal * 0.3}px, 35vh) rotate(${rotation * 0.3}deg)`,
-                    opacity: 1
-                },
-                {
-                    transform: `translate(${horizontal}px, 110vh) rotate(${rotation}deg)`,
-                    opacity: 0
+                    duration: 2000 + Math.random() * 4000,
+                    easing: "ease-in",
                 }
-            ],
-            {
-                duration: duration,
-                easing: "cubic-bezier(0.2, 0.7, 0.3, 1)"
-            }
-        );
+            );
 
-        fall.onfinish = () => piece.remove();
+            fall.onfinish = () => piece.remove();
+        }
     }
-}
 </script>
 </body>
 </html>
