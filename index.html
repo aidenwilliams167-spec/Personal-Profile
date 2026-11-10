@@ -42,54 +42,36 @@
     
 
 <script>
-    function confetti() {
-        const colors = [
-            "pink", "yellow", "blue", "green",
-            "purple", "orange", "red", "cyan",
-            "magenta", "lime", "gold", "white"
-        ];
+        function confetti() {
+            for (let i = 0; i < 900; i++) {
+                let piece = document.createElement("div");
 
-        for (let i = 0; i < 500; i++) {
-            let piece = document.createElement("div");
+                piece.style.position = "fixed";
+                piece.style.width = "10px";
+                piece.style.height = "10px";
+                piece.style.backgroundColor =
+                    ["pink", "yellow", "blue", "green", "purple", "orange"][Math.floor(Math.random() * 6)];
 
-            piece.style.position = "fixed";
-            piece.style.width = (5 + Math.random() * 12) + "px";
-            piece.style.height = (5 + Math.random() * 12) + "px";
+                piece.style.left = Math.random() * 100 + "vw";
+                piece.style.top = "-10px";
+                piece.style.zIndex = "9999";
 
-            piece.style.backgroundColor =
-                colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(piece);
 
-            piece.style.left = Math.random() * 100 + "vw";
-            piece.style.top = "-20px";
-            piece.style.zIndex = "9999";
-
-            // Random shapes
-            piece.style.borderRadius =
-                Math.random() > 0.5 ? "50%" : "0%";
-
-            document.body.appendChild(piece);
-
-            let horizontalMovement = (Math.random() - 0.5) * 400;
-
-            let fall = piece.animate(
-                [
+                let fall = piece.animate(
+                    [
+                        { transform: "translateY(0) rotate(0deg)" },
+                        { transform: "translateY(100vh) rotate(720deg)" }
+                    ],
                     {
-                        transform: "translate(0, 0) rotate(0deg)"
-                    },
-                    {
-                        transform:
-                            `translate(${horizontalMovement}px, 110vh) rotate(${720 + Math.random() * 1440}deg)`
+                        duration: 2000 + Math.random() * 2000,
+                        easing: "ease-out"
                     }
-                ],
-                {
-                    duration: 2000 + Math.random() * 4000,
-                    easing: "ease-in",
-                }
-            );
+                );
 
-            fall.onfinish = () => piece.remove();
+                fall.onfinish = () => piece.remove();
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
